@@ -114,6 +114,170 @@
           }
         }
       }
+    },
+    "example-lib": {
+      "projectType": "library",
+      "root": "libs/example-lib",
+      "sourceRoot": "libs/example-lib/src",
+      "prefix": "athenaeum-nx",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/example-lib/src/**/*.ts",
+              "libs/example-lib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/example-lib"],
+          "options": {
+            "jestConfig": "libs/example-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "example-app": {
+      "projectType": "application",
+      "root": "apps/example-app",
+      "sourceRoot": "apps/example-app/src",
+      "prefix": "athenaeum-nx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/example-app",
+            "index": "apps/example-app/src/index.html",
+            "main": "apps/example-app/src/main.ts",
+            "polyfills": "apps/example-app/src/polyfills.ts",
+            "tsConfig": "apps/example-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/example-app/src/favicon.ico",
+              "apps/example-app/src/assets"
+            ],
+            "styles": ["apps/example-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/example-app/src/environments/environment.ts",
+                  "with": "apps/example-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "example-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "example-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "example-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/example-app/src/**/*.ts",
+              "apps/example-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/example-app"],
+          "options": {
+            "jestConfig": "apps/example-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "example-app-e2e": {
+      "root": "apps/example-app-e2e",
+      "sourceRoot": "apps/example-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/example-app-e2e/cypress.json",
+            "tsConfig": "apps/example-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "example-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "example-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/example-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "auth": {
+      "projectType": "library",
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "prefix": "athenaeum-nx",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/src/**/*.ts",
+              "libs/auth/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth"],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
